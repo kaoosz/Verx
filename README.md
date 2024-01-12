@@ -1,7 +1,7 @@
 
 clone repository
 ```
-git clone https://github.com/kaoosz/pleno.git
+git clone https://github.com/kaoosz/Verx.git
 ```
 
 create .env in the root of project
