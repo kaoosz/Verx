@@ -4,6 +4,7 @@ import { ProdutorService } from "../../src/services/produtor.service";
 import { produtorSchema } from "../../src/validation/produtorValidation";
 import { FarmService } from "../../src/services/farm.service";
 import { prisma } from "../../src/services/prisma.service";
+import { ProdutorRural } from "../../src/types/produtor.rural";
 
 const produtorService = new ProdutorService(prisma);
 const farmService = new FarmService(prisma);
@@ -77,10 +78,10 @@ describe("farm by id", () => {
       document: "620.504.680-67",
     };
     const validateData = produtorSchema.safeParse(produtorData);
-    let produtorCreate = "";
+    let produtorCreate : ProdutorRural;
     if (validateData.success) {
-      produtorCreate = (await produtorService.createProdutor(validateData.data))
-        .id;
+      produtorCreate = await produtorService.createProdutor(validateData.data)
+      let id = produtorCreate.id
       const dataCreate = {
         city: "jest",
         state: "jest",
@@ -88,7 +89,7 @@ describe("farm by id", () => {
         area_arable: 12,
         area_vegetation: 13,
         name: "fazendao",
-        produtorRuralId: produtorCreate,
+        produtorRuralId: id,
       };
 
       const farm = await (await farmService.createFarm(dataCreate)).id;
@@ -98,7 +99,7 @@ describe("farm by id", () => {
           await farmService.deleteFarm(find);
         }
       }
-      const deleteProdu = await produtorService.deleteProdutor(produtorCreate);
+      const deleteProdu = await produtorService.deleteProdutor(id);
       expect(deleteProdu).toBeUndefined();
     }
   });
