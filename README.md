@@ -7,7 +7,7 @@ git clone https://github.com/kaoosz/Verx.git
 Create a .env file in the root of the project with the following content:
 
 ```
-DATABASE_URL="postgresql://user:admuser@localhost:5433/dbpostgre?schema=public"
+DATABASE_URL="postgresql://user:admuser@localhost:5432/dbpostgre?schema=public"
 ```
 
 Install All Dependencies
