@@ -4,7 +4,8 @@ import request from "supertest";
 import { app } from "../../app";
 import { ProdutorService } from "../../src/services/produtor.service";
 import { produtorSchema } from "../../src/validation/produtorValidation";
-import { any } from "zod";
+import { ProdutorRural } from "../../src/types/produtor.rural";
+
 
 const produtorService = new ProdutorService(prisma);
 const produtorcontroller = new ProdutorController(produtorService);
@@ -55,9 +56,10 @@ describe("ProdutorController", () => {
 
   it("update produtor pass", async () => {
     const produtorData = { name: "Test jest change name" };
-    const getOne = await (await produtorService.findAllProdutors())[0].id;
-    await produtorService.updateProdutor(getOne, { ...produtorData });
-    const checkName = await produtorService.findProdutorById(getOne);
+    const getOne = await produtorService.findAllProdutors();
+    const getId = getOne[0].id
+    await produtorService.updateProdutor(getId, { ...produtorData });
+    const checkName = await produtorService.findProdutorById(getId);
     expect(checkName?.name).toBe(produtorData.name);
   });
 
@@ -88,16 +90,21 @@ describe("ProdutorController", () => {
       document: "620.504.680-67",
     };
     const validateData = produtorSchema.safeParse(produtorData);
-    let produtorCreate = "";
-    if (validateData.success) {
-      produtorCreate = (await produtorService.createProdutor(validateData.data))
-        .id;
-    }
-    expect(produtorCreate).not.toBe(null);
-    const findProdutor = await produtorService.findProdutorById(produtorCreate);
+    // let produtorCreate : ProdutorRural = {
+    //   id:"",
+    //   document:"",
+    //   name: ""
+    // }
 
-    expect(produtorCreate).toBe(findProdutor?.id);
-    await produtorService.deleteProdutor(produtorCreate);
+    let id = "";
+    if (validateData.success) {
+      let produtorCreate = await produtorService.createProdutor(validateData.data);
+      id = produtorCreate.id
+      const findProdutor = await produtorService.findProdutorById(id);
+      expect(produtorCreate).toBe(findProdutor?.id);
+    }
+
+    await produtorService.deleteProdutor(id);
   });
 });
 

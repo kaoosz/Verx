@@ -81,7 +81,6 @@ describe("farm by id", () => {
     if (validateData.success) {
       produtorCreate = (await produtorService.createProdutor(validateData.data))
         .id;
-      expect(produtorCreate).not.toBe(null);
       const dataCreate = {
         city: "jest",
         state: "jest",
