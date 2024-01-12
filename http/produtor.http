@@ -1,0 +1,29 @@
+GET http://localhost:3008/produtor
+Content-Type: application/json
+
+###
+GET http://localhost:3008/produtor/{{id}}
+Content-Type: application/json
+
+# @name produtor
+###
+POST http://localhost:3008/produtor
+Content-Type: application/json
+
+{
+    "name": "nome",
+    "document": "95170982003"
+}
+
+
+###
+@id = {{produtor.response.body.id}}
+PATCH http://localhost:3008/produtor/{{id}}
+Content-Type: application/json
+
+{
+    "name": "nome mudado"
+}
+###
+DELETE http://localhost:3008/produtor/{{id}}
+Content-Type: application/json

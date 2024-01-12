@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3008:3008"
+    environment:
+      - DATABASE_URL=postgresql://user:admuser@postgres:5432/dbpostgre?schema=public
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: dbpostgre
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: admuser
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

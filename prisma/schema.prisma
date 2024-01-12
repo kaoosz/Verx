@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ProdutorRural {
+  id         String    @id @unique @default(uuid())
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+  name       String
+  document   String    @unique
+  farms      Farm[]
+}
+
+model Farm {
+  id              String         @id @unique @default(uuid())
+  name            String
+  city            String
+  state           String
+  area_total      Float
+  area_arable     Float
+  area_vegetation Float
+  cultures        FarmCultures[]
+  produtorRuralId String
+  ProdutorRural   ProdutorRural? @relation(fields: [produtorRuralId], references: [id],onDelete: Cascade)
+}
+
+model FarmCultures {
+  farmId  String
+  culture Culture
+  Farm    Farm    @relation(fields: [farmId], references: [id],onDelete: Cascade)
+
+  @@id([farmId, culture])
+}
+
+enum Culture {
+  SOYBEAN
+  CORN
+  COTTON
+  COFFEE
+  SUGARCANE
+}
