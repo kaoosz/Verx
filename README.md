@@ -1,20 +1,21 @@
 
-clone repository
+Clone the Repository
 ```
 git clone https://github.com/kaoosz/Verx.git
 ```
 
-create .env in the root of project
+Create a .env file in the root of the project with the following content:
+
 ```
 DATABASE_URL="postgresql://user:admuser@localhost:5433/dbpostgre?schema=public"
 ```
 
-install all dependencys
+Install All Dependencies
 ```
 npm install
 ```
 
-now its time just run
+Run the Application
 ```
 docker-compose up -d --build
 ```
@@ -27,7 +28,7 @@ docker-compose up -d --build
 
 
 
-create produtor rural POST
+Create Produtor Rural (POST)
 `/produtor`
 ```
 {
@@ -35,7 +36,7 @@ create produtor rural POST
     "document": "929.939.280-31",
 }
 ```
-update a produtor rural PATCH
+Update a Produtor Rural (PATCH)
 `/produtor/:id`
 ```
 {
@@ -43,19 +44,19 @@ update a produtor rural PATCH
     "document": "129.132.230-28",
 }
 ```
-list all produtor rural GET
+List All Produtor Rural (GET)
 `/produtor`
 
-find produtor rural by id GET
+Find Produtor Rural by ID (GET)
 `/produtor/:id`
 
-delete a produtor rural DELETE
+Delete a Produtor Rural (DELETE)
 `/produtor/:id`
 
 
 ## 📄 Farm Endpoints
 
-create farm POST
+Create Farm (POST)
 `/farm`
 ```
 {
@@ -68,6 +69,7 @@ create farm POST
     "produtorRuralId": "fdd44b7e-d8dc-4d4e-906d-e0325d07eefa"
 }
 ```
+Or with Farm Cultures:
 ```
 {
     "city": "São Paulo",
@@ -87,46 +89,46 @@ create farm POST
     ]
 }
 ```
-create farm culture only POST
+Create Farm Culture Only (POST)
 `/culture/:farmId`
 ```
 {
     "culture": "COFFEE"
 }
 ```
-list all farms GET
+List All Farms (GET)
 `/farm`
 
-find farm GET
+Find Farm by ID (GET)
 `/farm/:id`
 
-delete a farm DELETE
+Delete a Farm (DELETE)
 `/farm/:id`
 
 
 ## 📄 Dashboard Endpoints
 
-list farms in count GET
+List Farms in Count (GET)
 `/dashboard/total-farms-count`
 
-list farms total area GET
+List Farms Total Area (GET)
 `/dashboard/total-area`
 
-list by state GET
+List by State (GET)
 `/dashboard/farms-by-state`
 
-list by cultures GET
+List by Cultures (GET)
 `/dashboard/cultures`
 
-list by land use GET
+List by Land Use (GET)
 `/dashboard/land-use`
 
 
 
 
-## 📄 Test
+## 📄 Testing
 
-run tests inside docker using name of container app
+Run tests inside Docker using the name of the container 'app':
 ```
 docker-compose exec app npm test
 ```
