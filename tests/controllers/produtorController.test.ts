@@ -90,11 +90,6 @@ describe("ProdutorController", () => {
       document: "620.504.680-67",
     };
     const validateData = produtorSchema.safeParse(produtorData);
-    // let produtorCreate : ProdutorRural = {
-    //   id:"",
-    //   document:"",
-    //   name: ""
-    // }
 
     let id = "";
     if (validateData.success) {
